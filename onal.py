@@ -9,12 +9,6 @@ import re
 from itertools import islice
 
 # Functions
-def check(value,list_):
-    for item in list_:
-        if item == value:
-            return True
-    return False
-
 ### Append to a file ### 
 def fowrite(data):
     # data = [FILE, [contents], DIR]    
@@ -28,6 +22,7 @@ def fowrite(data):
             fo.writelines(line)
     return
 
+# Build a file
 def buildFILE(dataFILE):
     # dataFILE = [FILE,DIR]
     out_file = str(dataFILE)
@@ -40,7 +35,6 @@ def buildFILE(dataFILE):
     fo = open(out_file, 'w')
     fo.close()
     return
-
 
 # Regular Expressions (RegEx) patterns
 high_pat = re.compile(r'\sH\s')
@@ -140,11 +134,6 @@ with open(oniom_file, 'r') as foo:
             del sline[1]
             new_line = '     '.join(sline)+"\n"
             current_coord.append(new_line)
-            # if index in (qm_idx or front_idx): # Write to high level atoms xyz file and moving atoms file
-            #     fowrite([high_xyz_file,(new_line+"\n")])
-            #     fowrite([move_xyz_file,(new_line+"\n")])     
-            #else: # Write only to moving atoms xyz file
-            #    fowrite([move_xyz_file,(new_line+"\n")])
         # Check if list of atoms coordinates finished, if so, sets start to False.
         try: 
             int(line.split()[0])
