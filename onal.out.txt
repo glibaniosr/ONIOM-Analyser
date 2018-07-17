@@ -1,0 +1,6 @@
+#####  Starting ONIOM Analyser Version 1.00  #####
+Made by Gabriel L. S. Rodrigues
+
+Total number of atoms    =   4597 
+Total number of QM atoms =     96
+Number of frontier atoms =      7
