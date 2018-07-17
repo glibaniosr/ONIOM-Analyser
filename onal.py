@@ -147,5 +147,3 @@ with open(oniom_file, 'r') as foo:
             text_move.append(">\n")
             fowrite([move_xyz_file,text_move])
             start = False
-
-        
