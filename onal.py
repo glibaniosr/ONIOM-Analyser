@@ -53,7 +53,7 @@ move_idx = []
 
 # Parameters from prm file
 inf_file = "template_example.txt" #sysargv[1]
-oniom_file = "2e1-sing-2.log" #sysargv[3]
+oniom_file = "out_example.log" #sysargv[3]
 move_xyz_file = "oniom.move.all.xyz"
 high_xyz_file = "oniom.high.all.xyz" #sysargv[2]
 out_file = "onal.out.txt"
