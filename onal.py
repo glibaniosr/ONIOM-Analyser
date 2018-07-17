@@ -55,7 +55,7 @@ move_idx = []
 inf_file = "template_example.txt" #sysargv[1]
 oniom_file = "out_example.log" #sysargv[3]
 move_xyz_file = "oniom.move.all.xyz"
-high_xyz_file = "oniom.high.all.xyz" #sysargv[2]
+high_xyz_file = "oniom.qm.all.xyz" #sysargv[2]
 out_file = "onal.out.txt"
 xyz_print = 2 # 0 to print high level and moving atoms, 1 to print only moving atoms and 2 to print only high level atoms
 
