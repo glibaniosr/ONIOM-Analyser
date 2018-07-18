@@ -2,10 +2,10 @@
 # by Gabriel L. S. Rodrigues
 
 # Version
-s_version = 1.0
+s_version = "0.5.0"
 
 # Imported modules
-import re, getopt
+import re, sys, getopt
 
 # Default parameters
 oniom_file = "out_example.log"
@@ -13,17 +13,21 @@ inf_file = "template_example.txt"
 out_file = "onal.out.txt"
 move_xyz_file = "onal.move.all.xyz"
 high_xyz_file = "onal.qm.all.xyz"
-xyz_print = 2 # 0 to print high level and moving atoms, 1 to print only moving atoms and 2 to print only high level atoms
+xyz_print = 2 # 0 to print QM and moving atoms, 1 to print only moving atoms and 2 to print only QM atoms
+
 # Getopt Parameters
-usage = "onal.py -l oniom_calc.log -i info_file.txt -o output_file.txt"
+usage = "Usage: onal.py -l oniom_calc.log -i info_file.txt -o output_file.txt"
 try:
-    opts, args = getopt.getopt(sys.argv[1:], 'l:i:o:h', ['olog=', 'ifile=', 'ofile=', 'help'])
+    opts, args = getopt.getopt(sys.argv[1:], 'l:i:o:hv', ['olog=', 'ifile=', 'ofile=', 'help', 'version'])
 except getopt.GetoptError:
     print(usage)
     sys.exit(2)
 for opt, arg in opts:
     if opt in ('-h', '--help'):
         print(usage)
+        sys.exit(2)
+    if opt in ('-v', '--version'):
+        print("ONIOM Analyser Version {:s}".format(s_version))
         sys.exit(2)
     elif opt in ('-l', '--olog'):
         oniom_file = arg
@@ -34,7 +38,6 @@ for opt, arg in opts:
     else:
         print(usage)
         sys.exit(2)
-
 
 # Functions
 ### Append to a file ### 
@@ -64,22 +67,17 @@ def buildFILE(dataFILE):
     fo.close()
     return
 
-# Regular Expressions (RegEx) patterns
+# RegEx patterns
 high_pat = re.compile(r'\sH\s')
 front_pat = re.compile(r'L\sH-H_')
 coord_pat = re.compile(r'Input\sorientation:')
 
-# Text patterns to look up
-#high_text = 
-#front_text =
-input_text = "Input orientation"
+# Important data arrays
+qm_idx = [] # Stores QM atom indexes
+front_idx = [] # Stores frontier atom indexes
+move_idx = [] # Stores moving atoms indexes
 
-# Variables
-qm_idx = []
-front_idx = []
-move_idx = []
-
-# Open the information file with atom description and get the high level and frontier atoms.
+# Open the information file with atom description and get the QM only and frontier atoms.
 with open(inf_file, 'r') as foo:
     index = 1
     for line in foo:
@@ -88,14 +86,14 @@ with open(inf_file, 'r') as foo:
         if not re.search(high_pat, line) and not re.search(front_pat, line): # Add index counter for lines without match
             index += 1
             continue
-        elif re.search(high_pat, line): # High level calculation atom indexes
+        elif re.search(high_pat, line): # QM calculation atom indexes
             qm_idx.append(index)
             index += 1
         elif re.search(front_pat, line): # Frontier QM/MM atom indexes
             front_idx.append(index) # If it is necessary to separate the frontier atoms later
             qm_idx.append(index)
             index += 1
-    # Defining the number of atoms: total, only high level, frontier, all high level and moving
+    # Defining the number of atoms: total, only QM level, frontier, all QM and moving
     numb_atoms = index - 1
     numb_qm = len(qm_idx)
     numb_front = len(front_idx)
@@ -106,18 +104,18 @@ with open(inf_file, 'r') as foo:
 # Create the output files from scratch and start to write on it.
 # General output file
 buildFILE(out_file)
-text = "#####  Starting ONIOM Analyser Version {:.2f}  #####\
+text = "#####  Starting ONIOM Analyser Version {:s}  #####\
 \nMade by Gabriel L. S. Rodrigues\n\
 \nTotal number of atoms    = {:6d} \nTotal number of QM atoms = {:6d}\
 \nNumber of frontier atoms = {:6d}".format(s_version,numb_atoms,numb_qm,numb_front)
 fowrite([out_file,text])
 # Moving atoms xyz file
 buildFILE(move_xyz_file)
-# High level atoms xyz file
+# QM atoms xyz file
 buildFILE(high_xyz_file)
     
 # Open the ONIOM calculation file and extract:
-# the coordinates of moving atoms, high level atoms and total number of atoms.
+# the coordinates of moving atoms, QM atoms and total number of atoms.
 with open(oniom_file, 'r') as foo:
     index = 0
     ncoord = 0
