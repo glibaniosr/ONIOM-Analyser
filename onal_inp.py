@@ -14,7 +14,7 @@ def get_geom(xyz_file,catch,geom_num):
                 new_xyz = []
                 for line in inp:
                     try:
-                        test = int(line.strip()[0])
+                        int(line.strip()[0])
                         new_xyz.append(line.split()[1::])
                     except:
                         break
