@@ -5,8 +5,36 @@
 s_version = 1.0
 
 # Imported modules
-import re
-from itertools import islice
+import re, getopt
+
+# Default parameters
+oniom_file = "out_example.log"
+inf_file = "template_example.txt"
+out_file = "onal.out.txt"
+move_xyz_file = "onal.move.all.xyz"
+high_xyz_file = "onal.qm.all.xyz"
+xyz_print = 2 # 0 to print high level and moving atoms, 1 to print only moving atoms and 2 to print only high level atoms
+# Getopt Parameters
+usage = "onal.py -l oniom_calc.log -i info_file.txt -o output_file.txt"
+try:
+    opts, args = getopt.getopt(sys.argv[1:], 'l:i:o:h', ['olog=', 'ifile=', 'ofile=', 'help'])
+except getopt.GetoptError:
+    print(usage)
+    sys.exit(2)
+for opt, arg in opts:
+    if opt in ('-h', '--help'):
+        print(usage)
+        sys.exit(2)
+    elif opt in ('-l', '--olog'):
+        oniom_file = arg
+    elif opt in ('-i', '--ifile'):
+        inf_file = arg
+    elif opt in ('-o', '--ofile'):
+        out_file = arg
+    else:
+        print(usage)
+        sys.exit(2)
+
 
 # Functions
 ### Append to a file ### 
@@ -50,14 +78,6 @@ input_text = "Input orientation"
 qm_idx = []
 front_idx = []
 move_idx = []
-
-# Parameters from prm file
-inf_file = "template_example.txt" #sysargv[1]
-oniom_file = "out_example.log" #sysargv[3]
-move_xyz_file = "oniom.move.all.xyz"
-high_xyz_file = "oniom.qm.all.xyz" #sysargv[2]
-out_file = "onal.out.txt"
-xyz_print = 2 # 0 to print high level and moving atoms, 1 to print only moving atoms and 2 to print only high level atoms
 
 # Open the information file with atom description and get the high level and frontier atoms.
 with open(inf_file, 'r') as foo:
