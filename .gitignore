@@ -1,4 +1,3 @@
 data_backup
-*.xyz
-*.idx
-*.inp
+_pycache_
+.vscode
