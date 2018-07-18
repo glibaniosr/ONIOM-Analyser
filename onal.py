@@ -2,10 +2,38 @@
 # by Gabriel L. S. Rodrigues
 
 # Version
-s_version = "0.5.0"
+s_version = "0.6.0"
 
 # Imported modules
-import re, sys, getopt
+import re, sys, getopt, glob, os
+
+# Functions
+### Append to a file ### 
+def fowrite(data):
+    # data = [FILE, [contents], DIR]    
+    out_file = str(data[0])
+    contents = data[1]
+    #DIR = str(data[2]) # If one wants to include DIR.
+    # Enter new DIR and append to the file
+    #with cd(DIR):
+    with open(out_file,'a') as fo:              
+        for line in contents:
+            fo.writelines(line)
+    return
+
+# Build a file
+def buildFILE(dataFILE):
+    # dataFILE = [FILE,DIR]
+    out_file = str(dataFILE)
+    #DIR = str(dataFILE[1])
+    # Create new DIR if does not exist    
+    #if not os.path.exists(DIR):
+    #    os.makedirs(DIR)
+    # Create file in DIR
+    #with cd(DIR):
+    fo = open(out_file, 'w')
+    fo.close()
+    return
 
 # Default parameters
 oniom_file = "out_example.log"
@@ -39,33 +67,9 @@ for opt, arg in opts:
         print(usage)
         sys.exit(2)
 
-# Functions
-### Append to a file ### 
-def fowrite(data):
-    # data = [FILE, [contents], DIR]    
-    out_file = str(data[0])
-    contents = data[1]
-    #DIR = str(data[2]) # If one wants to include DIR.
-    # Enter new DIR and append to the file
-    #with cd(DIR):
-    with open(out_file,'a') as fo:              
-        for line in contents:
-            fo.writelines(line)
-    return
-
-# Build a file
-def buildFILE(dataFILE):
-    # dataFILE = [FILE,DIR]
-    out_file = str(dataFILE)
-    #DIR = str(dataFILE[1])
-    # Create new DIR if does not exist    
-    #if not os.path.exists(DIR):
-    #    os.makedirs(DIR)
-    # Create file in DIR
-    #with cd(DIR):
-    fo = open(out_file, 'w')
-    fo.close()
-    return
+# Auxiliar files
+out_basename,ext = os.path.splitext(out_file)
+idx_file = out_basename+".idx"
 
 # RegEx patterns
 high_pat = re.compile(r'\sH\s')
@@ -113,6 +117,20 @@ fowrite([out_file,text])
 buildFILE(move_xyz_file)
 # QM atoms xyz file
 buildFILE(high_xyz_file)
+# Indexes file
+buildFILE(idx_file)
+    
+### Write the indexes to the index file (A bit SLOW):
+# QM part
+with open(idx_file,'a') as output:
+    output.write("QM atoms index\n")
+    [ output.write(str(idx)+"\n") for idx in qm_idx ]
+    output.write(">\n")
+# Moving part
+with open(idx_file,'a') as output:
+    output.write("QM atoms index\n")
+    [ output.write(str(idx)+"\n") for idx in move_idx ]
+    output.write(">\n")
     
 # Open the ONIOM calculation file and extract:
 # the coordinates of moving atoms, QM atoms and total number of atoms.
@@ -146,7 +164,6 @@ with open(oniom_file, 'r') as foo:
         ## Starting with the coordinates writing
         # Finding the lines with the desired atoms.
         if index <= numb_atoms:
-        #elif (index in (move_idx or qm_idx or front_idx)) and start:
             sline = line.split()
             del sline[0]
             del sline[1]
