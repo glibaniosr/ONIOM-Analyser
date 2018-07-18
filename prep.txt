@@ -1,0 +1,9 @@
+%Nproc=20
+%Mem=16Gb
+%Chk=2e1-sing-2.chk
+# opt=(MaxCycles=10000,QuadMac) oniom(b3lyp/GenECP:uff) geom=connectivity NoSymm 
+iop(4/120=100000) iop(3/124=40) iop(2/15=3) scf=(direct,MaxCycle=2000) freq=noraman
+
+2ei1 Singlet Geometry Optimization
+
+-14 1 0 1 0 1

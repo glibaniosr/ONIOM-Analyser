@@ -1,8 +1,9 @@
 # ONIOM Analyser
 # by Gabriel L. S. Rodrigues
+# July 2018
 
 # Version
-s_version = "0.6.0"
+s_version = "1.0.0"
 
 # Imported modules
 import re, sys, getopt, glob, os
@@ -40,7 +41,7 @@ oniom_file = "out_example.log"
 inf_file = "template_example.txt"
 out_file = "onal.out.txt"
 move_xyz_file = "onal.move.all.xyz"
-high_xyz_file = "onal.qm.all.xyz"
+qm_xyz_file = "onal.qm.all.xyz"
 xyz_print = 2 # 0 to print QM and moving atoms, 1 to print only moving atoms and 2 to print only QM atoms
 
 # Getopt Parameters
@@ -116,11 +117,11 @@ fowrite([out_file,text])
 # Moving atoms xyz file
 buildFILE(move_xyz_file)
 # QM atoms xyz file
-buildFILE(high_xyz_file)
+buildFILE(qm_xyz_file)
 # Indexes file
 buildFILE(idx_file)
     
-### Write the indexes to the index file (A bit SLOW):
+### Write the indexes to the index file:
 # QM part
 with open(idx_file,'a') as output:
     output.write("QM atoms index\n")
@@ -128,7 +129,7 @@ with open(idx_file,'a') as output:
     output.write(">\n")
 # Moving part
 with open(idx_file,'a') as output:
-    output.write("QM atoms index\n")
+    output.write("Moving atoms index\n")
     [ output.write(str(idx)+"\n") for idx in move_idx ]
     output.write(">\n")
     
@@ -151,7 +152,7 @@ with open(oniom_file, 'r') as foo:
             # Write the number of atoms and geometry number in xyz files
             text_high = str(numb_qm) + "\nQM atoms geometry {:6d}\n".format(ncoord)
             text_move = str(numb_move) + "\nMoving atoms geometry {:6d}\n".format(ncoord)
-            fowrite([high_xyz_file,text_high])
+            fowrite([qm_xyz_file,text_high])
             fowrite([move_xyz_file,text_move])
             print("Writing geometry {:d}".format(ncoord))
             continue
@@ -176,7 +177,7 @@ with open(oniom_file, 'r') as foo:
             # Write to QM file.
             text_high = [current_coord[i-1] for i in qm_idx]
             text_high.append(">\n")
-            fowrite([high_xyz_file,text_high])
+            fowrite([qm_xyz_file,text_high])
             # Write to moving atoms file.
             text_move = [current_coord[i-1] for i in move_idx]
             text_move.append(">\n")
