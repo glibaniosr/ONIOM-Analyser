@@ -3,7 +3,6 @@
 # Imported modules
 #import onal
 import re, sys, getopt, glob, os
-from shutil import copyfile
 
 ### Functions
 # Extract geometry number geom_num from .all.xyz file in a list
