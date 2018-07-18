@@ -1,4 +1,4 @@
-#####  Starting ONIOM Analyser Version 0.6.0  #####
+#####  Starting ONIOM Analyser Version 1.0.0  #####
 Made by Gabriel L. S. Rodrigues
 
 Total number of atoms    =   4597 
