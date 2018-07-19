@@ -7,8 +7,18 @@ s_version = "1.0.0"
 
 # Imported modules
 import re, sys, getopt, glob, os
+from contextlib import contextmanager
 
 # Functions
+## Context manager for changing the current working directory ##
+@contextmanager
+def cd(newdir):
+    prevdir = os.getcwd()
+    os.chdir(os.path.expanduser(newdir))
+    try:
+        yield
+    finally:
+        os.chdir(prevdir)
 ### Append to a file ### 
 def fowrite(data):
     # data = [FILE, [contents], DIR]    
@@ -21,8 +31,7 @@ def fowrite(data):
         for line in contents:
             fo.writelines(line)
     return
-
-# Build a file
+### Build a file
 def buildFILE(dataFILE):
     # dataFILE = [FILE,DIR]
     out_file = str(dataFILE)
@@ -36,6 +45,8 @@ def buildFILE(dataFILE):
     fo.close()
     return
 
+# Globals
+CWD = os.getcwd()
 # Default parameters
 oniom_file = "out_example.log"
 inf_file = "template_example.txt"
