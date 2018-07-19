@@ -39,7 +39,7 @@ append = False
 geom_num = 1
 
 ### Getopt Parameters
-usage = "Usage: onal_inp.py -i info_file.txt -o output_file.txt -p prepend_file.txt -a append_file.txt -g geometry_number"
+usage = "Usage: onal_inp.py -i info_file.txt -o onion_calc.inp -p prepend_file.txt -a append_file.txt -g geometry_number"
 try:
     opts, args = getopt.getopt(sys.argv[1:], 'i:o:p:a:g:h', [ 'ifile=', 'ofile=', 'prepend=', 'geometry=' 'append=' 'help' ])
 except getopt.GetoptError:
