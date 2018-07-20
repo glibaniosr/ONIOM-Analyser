@@ -2,5 +2,5 @@
 Made by Gabriel L. S. Rodrigues
 
 Total number of atoms    =   4597 
-Total number of QM atoms =     96
+Total number of QM atoms =     97
 Number of frontier atoms =      7

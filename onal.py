@@ -49,7 +49,7 @@ def buildFILE(dataFILE):
 CWD = os.getcwd()
 # Default parameters
 oniom_file = "out_example.log"
-inf_file = "template_example.txt"
+inf_file = "info_example.txt"
 out_file = "onal.out.txt"
 move_xyz_file = "onal.move.all.xyz"
 qm_xyz_file = "onal.qm.all.xyz"
@@ -93,11 +93,13 @@ qm_idx = [] # Stores QM atom indexes
 front_idx = [] # Stores frontier atom indexes
 move_idx = [] # Stores moving atoms indexes
 
-# Open the information file with atom description and get the QM only and frontier atoms.
+### Open the information file with atom description and get the QM only and frontier atoms.
 with open(inf_file, 'r') as foo:
     index = 1
     for line in foo:
-        if int(line.split()[1]) == 0:
+        if not line.strip():
+            continue
+        elif int(line.split()[1]) == 0:
             move_idx.append(index)
         if not re.search(high_pat, line) and not re.search(front_pat, line): # Add index counter for lines without match
             index += 1
@@ -144,7 +146,7 @@ with open(idx_file,'a') as output:
     [ output.write(str(idx)+"\n") for idx in move_idx ]
     output.write(">\n")
     
-# Open the ONIOM calculation file and extract:
+### Open the ONIOM calculation file and extract:
 # the coordinates of moving atoms, QM atoms and total number of atoms.
 with open(oniom_file, 'r') as foo:
     index = 0

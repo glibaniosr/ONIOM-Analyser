@@ -27,7 +27,7 @@ def coord_replace(idx_list,old_xyz,new_xyz):
     return temp_coord
 
 # Default parameters
-inf_file = "template_example.txt"
+inf_file = "info_example.txt"
 out_file = "oniom.inp"
 move_xyz_file = glob.glob("*.move.all.xyz")[0]
 qm_xyz_file = glob.glob("*.qm.all.xyz")[0]
