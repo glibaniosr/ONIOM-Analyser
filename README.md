@@ -14,14 +14,14 @@ https://www.anaconda.com/download/
 ## Version 1.0.0
 In its current form, version 1.0.0 has the capabilitiy to extract all the geometries of the Quantum Mechanical (QM) treated atoms, including the ones in the Molecular Mechanics (MM) treatment frontier and save them in a single ".qm.all.xyz" file. All the geometries of moving atoms (QM or MM), which are selected by the 0 value in the Gaussian input file are also separated in a single "move.all.xyz" file.
 
-To do the analysis the program needs a Gaussian ONIOM .log file with all calculation geometries and a user made file, exemplified in the template_example.txt in the input_examples folder in the form:
+To do the analysis the program needs a Gaussian ONIOM .log file with all calculation geometries and a user made file, exemplified in the info_example.txt in the input_examples folder in the form:
  ```
  C-C_3(PDBName=CA,ResName=HIS,ResNum=152_A)       0   13.20400000   23.94000000   18.51100000 L H-H_ 2313
  C-C_R(PDBName=C,ResName=HIS,ResNum=152_A)        0   14.08000000   25.13400000   18.81300000 L
  C-C_3(PDBName=CB,ResName=HIS,ResNum=152_A)       0   14.05000000   22.65400000   18.42700000 H
  ``` 
  Where L - H-H denotes atoms in the QM/MM frontier region, L atoms in the low level MM region and H the atoms in the high level QM region.
- The template file must not contain any other information and has the format used in the gaussian input.
+ The info file must not contain any other information and has the format used in the gaussian input.
  
  ### Usage
  
