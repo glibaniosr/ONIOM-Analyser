@@ -5,7 +5,7 @@ Written by Gabriel L. S. Rodrigues.
 
 
 The onal program is a Python script that has as objective the analysis of ONIOM QM/MM calculations output files from Gaussian software, since these files have a large amount of text and information. It requires the instalation of a Python 3 interpreter. Below there are
-links to download two options, Python and Anaconda, the latter a package that includes many scientific focused softwares including a Python interpreter.
+links to download two options, Python and Anaconda, being the latter a package that includes many scientific focused softwares including a Python interpreter.
 
 https://www.python.org/downloads/
 
