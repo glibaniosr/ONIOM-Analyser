@@ -12,11 +12,8 @@ https://www.python.org/downloads/
 https://www.anaconda.com/download/
 
 ## Version 1.0.0
-<<<<<<< HEAD
-In its current form, version 1.0.0 has the capability to extract all the geometries of the Quantum Mechanical (QM) treated atoms, including the ones in the Molecular Mechanics (MM) treatment frontier and save them in a single ".qm.all.xyz" file. All the geometries of moving atoms (QM or MM), which are selected by the 0 value in the Gaussian input file are also separated in a single "move.all.xyz" file.
-=======
+
 In its current form, version 1.0.0 has the capabilitiy to extract all the geometries of the Quantum Mechanical (QM) treated atoms, including the ones in the Molecular Mechanics (MM) treatment frontier and save them in a single ".qm.all.xyz" file. All the geometries of moving atoms (QM or MM), which are selected by the 0 value in the Gaussian input file are also separated in a single "move.all.xyz" file.
->>>>>>> 01166dcc871e4398dfb53c07b3e99a63785e69ea
 
 To do the analysis the program needs a Gaussian ONIOM .log file with all calculation geometries and a user made file, exemplified in the info_example.txt in the input_examples folder in the form:
  ```
