@@ -190,10 +190,10 @@ with open(oniom_file, 'r') as foo:
         except ValueError: # When all coordinates from given geometry ends
             # Write to QM file.
             text_high = [current_coord[i-1] for i in qm_idx]
-            text_high.append(">\n")
+            #text_high.append(">\n") #This format does not work on all visualizers
             fowrite([qm_xyz_file,text_high])
             # Write to moving atoms file.
             text_move = [current_coord[i-1] for i in move_idx]
-            text_move.append(">\n")
+            #text_move.append(">\n") # This format does not work on all visualizers
             fowrite([move_xyz_file,text_move])
             start = False
