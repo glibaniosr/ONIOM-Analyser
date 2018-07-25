@@ -3,7 +3,7 @@
 # July 2018
 
 # Version
-s_version = "1.0.0"
+s_version = "1.0.1"
 
 # Imported modules
 import re, sys, getopt, glob, os
@@ -124,8 +124,9 @@ with open(inf_file, 'r') as foo:
 buildFILE(out_file)
 text = "#####  Starting ONIOM Analyser Version {:s}  #####\
 \nMade by Gabriel L. S. Rodrigues\n\
-\nTotal number of atoms    = {:6d} \nTotal number of QM atoms = {:6d}\
-\nNumber of frontier atoms = {:6d}".format(s_version,numb_atoms,numb_qm,numb_front)
+\nTotal number of atoms    = {:6d} \nTotal number of moving atoms = {:6d}\
+ \nTotal number of QM atoms = {:6d}\
+\nNumber of frontier atoms = {:6d}".format(s_version,numb_atoms,numb_move,numb_qm,numb_front)
 fowrite([out_file,text])
 # Moving atoms xyz file
 buildFILE(move_xyz_file)
