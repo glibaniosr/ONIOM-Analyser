@@ -1,4 +1,6 @@
 # ONIOM Analyser to create inputs
+# by Gabriel L. S. Rodrigues
+# July 2018
 
 # Imported modules
 #import onal
